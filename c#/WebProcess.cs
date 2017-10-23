@@ -1,13 +1,14 @@
 using System; 
 using System.IO;
-using System.Web;
 public class WebProcess
 {
     public static void Main()
     {
         try
         {
-            Uri reader = new
+        	var url = "http://theochem.mercer.edu/csc330/data/airports.csv";       //Url to be accessed
+        	var textFromFile = (new System.Net.WebClient()).DownloadString(url);	//Pushes contents of the file to textFromFile
+        	Console.WriteLine(textFromFile);
         }
         catch (IOException e)
         {
