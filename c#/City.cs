@@ -1,6 +1,7 @@
 public class City
 {
-    City()
+    private string cityName;
+    public City()
     {
 
     }
