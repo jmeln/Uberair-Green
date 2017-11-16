@@ -7,14 +7,15 @@ namespace MathClassCs{
 		private string _name;
 		private City _cityStart;
 		private City _cityEnd;
-		private int _distTraveled;
-		private int _priceCharged;
+		private double _distTraveled;
+		private double _priceCharged;
 	//Default Constructor
 		public Passenger(string fName, string lName, City locS, City locE){
 			_name = lName + ", " + fName;
 			_cityStart = locS;
 			_cityEnd = locE;
 			_distTraveled = Distance(_cityStart, _cityEnd);
+			_priceCharged = CalcPrice(_distTraveled);
 		}
 	//TODO: Build Methods necessary
 	//Function to calculate the distance travel
@@ -29,8 +30,8 @@ namespace MathClassCs{
 			d = ((2*6373)/(Math.sin(Math.Sqrt(d))));
 			return d;
 		}
-		private int CalcPrice(int distT){
-			return 0;	
+		private static double CalcPrice(double distT){
+			return (distT*1.25);	
 		}
 	//Returns the name of the customer
 		public string Name{
