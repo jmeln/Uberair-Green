@@ -20,13 +20,21 @@ public class Passenger{
 	//Function to calculate the distance between the source and the destination
 	private static double Distance(City locS, City locE){
 		double d = 0;
-		double a1 = locS.Latitude;
-		double a2 = locE.Latitude;
-		double b1 = locS.Longitude;
-		double b2 = locE.Longitude;
+		double a1 = DegreesToRadians(locS.Latitude);
+		double a2 = DegreesToRadians(locE.Latitude);
+		double b1 = DegreesToRadians(locS.Longitude);
+		double b2 = DegreesToRadians(locE.Longitude);
 		d = Math.Sin((a2-a1)/2) + Math.Cos(a1)*Math.Cos(a2)*Math.Sin((b2-b1)/2);
 		d = ((2*6373)/(Math.Sin(Math.Sqrt(d))));
 		return d;
+	}
+	//Converts a number in degrees to radians
+	private static double DegreesToRadians(double num){
+		return ((Math.PI/180)*num);
+	}
+	//Converts a number in radians to degrees
+	private static double RadiansToDegrees(double num){
+		return ((num*180)/Math.PI);
 	}
 	//Calculates the price per mile between source and destination.
 	private static double CalcPrice(double distT){
