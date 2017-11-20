@@ -1,24 +1,14 @@
 public class City
-{
+{//City class
+ //By: Matt Schnider
+ 
     //Private members
     private string _cityName, _state;
     private double _latitude, _longitude;
     private int _timeZone, _sunSet, _passengersWaiting;
     //private Airport nearestLighted, nearestUnlighted;
     
-    /*Constructor
-    public City()
-    {
-        cityName = "";
-        state = "";
-        latitude = 0.0;
-        longitude = 0.0;
-        timeZone = 0;
-        sunSet = 0;
-        passengersWaiting = 0;
-    }
-    */
-    //Overloaded constructor that takes all muteable parameters
+    //Constructor
     public City(string cityName, string state, double latitude, double longitude,
                     int timeZone, int sunSet, int passengersWaiting)
     {
