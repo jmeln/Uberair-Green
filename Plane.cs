@@ -2,7 +2,7 @@ using System;
 
 public class Plane
 {
-    private double plane_fuel,plane_subtractFuel;
+    private double plane_fuel;
     private int plane_numPass, plane_timeZone,plane_addPass,plane_removePass;
 
     public Plane(double fuel, double subtractFuel, int numPass, int timeZone, int addPass, int removePass)
@@ -20,10 +20,15 @@ public class Plane
      get{return plane_fuel;}
     }
 
-    double subtractFuel
-    {
+ /*   double subtractFuel <- this simply a getter, it cannot change the fuel as it's name implies
+    {                        below, I copied this method and changed it to a setter that actually subtracts fuel
      get{return plane_subtractFuel;}
      }
+     */
+    public void subtractFuel(double x)
+    {
+        plane_fuel -= x;      //This function now reduces the plane_fuel by the passed in x. 
+    }
     int numPass
     {
      get{return plane_numPass;}
