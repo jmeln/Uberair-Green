@@ -6,7 +6,7 @@ public class City
     private string _cityName, _state;
     private double _latitude, _longitude;
     private int _timeZone, _sunSet, _passengersWaiting;
-    //private Airport nearestLighted, nearestUnlighted;
+//    private Airport _nearestLighted, _nearestUnlighted; //Waiting for airport class
     
     //Constructor
     public City(string cityName, string state, double latitude, double longitude,
@@ -49,4 +49,14 @@ public class City
     {
         get{return _passengersWaiting;}
     }
+/*    public int NearestLighted
+    {
+        get{return _nearestLighted;}
+        set{_nearestLighted;}
+    }
+    public int NearestUnLighted
+    {
+        get{return _nearestUnLighted;}
+        set{_nearestUnLighted;}
+    } waiting for airport */
 }
