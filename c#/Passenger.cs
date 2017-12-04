@@ -1,4 +1,6 @@
-//Author: Jarrett Melnick
+//Author: tAvg, longAvg;
+//double latAvg, longAvg;
+//Jarrett Melnick
 //Class to store data relating to individual passengers.
 using System;
 

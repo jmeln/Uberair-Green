@@ -1,9 +1,6 @@
 using System;
 using System.IO;
-<<<<<<< HEAD
 using System.Collections;
-=======
->>>>>>> add3385e4f371130e51ba44ac89cc9fbeb9a88a1
 
 public class UberAirMain
 {
@@ -58,12 +55,12 @@ public class UberAirMain
         string lName;
         string oCity;
         string oState;
-        double oLong;
-        double oLat;
+        double oLong = default(double);
+        double oLat = default(double);
         string dCity;
         string dState;
-        double dLong;
-        double dLat;
+        double dLong = default(double);
+        double dLat = default(double);
 
         while(true)
         {
@@ -85,26 +82,68 @@ public class UberAirMain
             Console.Write("Destination State (Two Letter Code): ");
             dState = Console.ReadLine();
 
-            for(int i = 0; i < cityLines.Length; i++)
+            string tempOCity = "\"" + oCity + "\"";
+            string tempOState = "\"" + oState + "\"";
+            string tempDCity = "\"" + dCity + "\"";
+            string tempDState = "\"" + dState + "\"";
+
+            for(int i = 1; i < cityLines.Length - 1; i++)
             {
                 string[] currCity = cityLines[i].Split(',');
-                if(currCity[3] == oCity)
+                if(currCity[3] == tempOCity && currCity[4] == tempOState)
                 {
-                    oLong = Convert.ToDouble(currCity[1]);
-                    oLat = Convert.ToDouble(currCity[2]);
+                    double latSum = Convert.ToDouble(currCity[1]);
+                    double longSum = Convert.ToDouble(currCity[2]);
+                    double latAvg, longAvg;
+                    int count = 1;
+                    while(currCity[3] == tempOCity && currCity[4] == tempOState)
+                    {
+                        i++;
+                        currCity = cityLines[i].Split(',');
+
+                        latSum += Convert.ToDouble(currCity[1]);
+                        longSum += Convert.ToDouble(currCity[2]);
+                        count++;
+                    }
+
+                    latAvg = latSum / count;
+                    longAvg = longSum / count;
+                    oLong = longAvg;
+                    oLat = latAvg;
                 }
-                else if(currCity[3] == dCity)
+                else if(currCity[3] == tempDCity && currCity[4] == tempDState)
                 {
-                    dLong = Convert.ToDouble(currCity[1]);
-                    dLat = Convert.ToDouble(currCity[2]);
+                    double latSum = Convert.ToDouble(currCity[1]);
+                    double longSum = Convert.ToDouble(currCity[2]);
+                    double latAvg, longAvg;
+                    int count = 1;
+                    while(currCity[3] == tempDCity && currCity[4] == tempDState)
+                    {
+                        i++;
+                        currCity = cityLines[i].Split(',');
+
+                        latSum += Convert.ToDouble(currCity[1]);
+                        longSum += Convert.ToDouble(currCity[2]);
+                        count++;
+                    }
+
+                    latAvg = latSum / count;
+                    longAvg = longSum / count;
+                    dLong = longAvg;
+                    dLat = latAvg;
                 }
 
                 if(oLong != default(double) && dLong != default(double))
                     break;
             }
 
-            Console.WriteLine(oLong + " " + oLat);
-            Console.WriteLine(dLong + " " + dLat);
+            if(oLong == default(double) && dLong == default(double))
+            {
+                Console.WriteLine("ERROR: Invalid Origin/Destination City. Try Again...");
+            }
+
+            City origin = new City(oCity, oState, oLat, oLong, );
+            Passenger A = new Passenger(fName, lName, 
 
         }
 
