@@ -2,47 +2,57 @@ using System;
 
 public class Plane
 {
-    private double plane_fuel;
-    private int plane_numPass, plane_timeZone,plane_addPass,plane_removePass;
+    private double _fuel;
+    private int _numPass, _timeZone,_removePass;
 
-    public Plane(double fuel, double subtractFuel, int numPass, int timeZone, int addPass, int removePass)
+    public Plane(double fuel, int numPass, int timeZone)
     {
-        plane_fuel = fuel;
-        plane_subtractFuel = subtractFuel;
-        plane_numPass = numPass;
-        plane_timeZone = timeZone;
-        plane_addPass = addPass;
-        plane_removePass = removePass;
+        _fuel = fuel;
+        _numPass = numPass;
+        _timeZone = timeZone;
     }
 
     public double fuel
     {
-     get{return plane_fuel;}
+     get{return _fuel;}
     }
 
- /*   double subtractFuel <- this simply a getter, it cannot change the fuel as it's name implies
-    {                        below, I copied this method and changed it to a setter that actually subtracts fuel
-     get{return plane_subtractFuel;}
-     }
-     */
-    public void subtractFuel(double x)
+    public int numPass
     {
-        plane_fuel -= x;      //This function now reduces the plane_fuel by the passed in x. 
+     get{return _numPass;}
     }
-    int numPass
+
+    public int timeZone
     {
-     get{return plane_numPass;}
+     get{return _timeZone;}
     }
-    int timeZone
+
+    public void incFuel(double x)
     {
-     get{return plane_timeZone;}
+        _fuel -= x; 
     }
-    int addPass
+
+    public void decFuel(double x)
     {
-       get{return plane_addPass;}
+        _fuel -= x; 
     }
-    int removePass
+
+    public void incPass(int x)
     {
-       get{return plane_removePass;}
+       _numPass += x;
+    }
+    public void decPass(int x)
+    {
+        _numPass -=x;
+    }
+
+    public void incTimezone(double x)
+    {
+        _timezone -= x; 
+    }
+
+    public void decTimezone(double x)
+    {
+        _timezone -= x; 
     }
 }
