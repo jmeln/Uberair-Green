@@ -3,13 +3,13 @@ using System;
 public class Plane
 {
     private double _fuel;
-    private int _numPass, _timeZone,_removePass;
+    private int _numPass, _timezone;
 
-    public Plane(double fuel, int numPass, int timeZone)
+    public Plane(double fuel, int numPass, int timezone)
     {
         _fuel = fuel;
         _numPass = numPass;
-        _timeZone = timeZone;
+        _timezone = timezone;
     }
 
     public double fuel
@@ -22,9 +22,9 @@ public class Plane
      get{return _numPass;}
     }
 
-    public int timeZone
+    public int timezone
     {
-     get{return _timeZone;}
+     get{return _timezone;}
     }
 
     public void incFuel(double x)
@@ -46,12 +46,12 @@ public class Plane
         _numPass -=x;
     }
 
-    public void incTimezone(double x)
+    public void incTimezone(int x)
     {
         _timezone -= x; 
     }
 
-    public void decTimezone(double x)
+    public void decTimezone(int x)
     {
         _timezone -= x; 
     }
