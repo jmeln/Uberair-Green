@@ -5,19 +5,19 @@ using System.Collections.Generic;
 //{
     public class Graph
     {
-        Dictionary<char, Dictionary<char, int>> vertices = new Dictionary<char, Dictionary<char, int>>();
+        Dictionary<string, Dictionary<string, int>> vertices = new Dictionary<string, Dictionary<string, int>>();
 
-        public void add_vertex(char name, Dictionary<char, int> edges)
+        public void add_vertex(string name, Dictionary<string, int> edges)
         {
             vertices[name] = edges;
         }
 
-        public List<char> shortest_path(char start, char finish){
-            var previous = new Dictionary<char, char>();
-            var distances = new Dictionary<char, int>();
-            var nodes = new List<char>();
+        public List<string> shortest_path(string start, string finish){
+            var previous = new Dictionary<string, string>();
+            var distances = new Dictionary<string, int>();
+            var nodes = new List<string>();
 
-            List<char> path = null;
+            List<string> path = null;
 
             foreach (var vertex in vertices)
             {
@@ -42,7 +42,7 @@ using System.Collections.Generic;
                 
                 if (smallest == finish)
                 {
-                    path = new List<char>();
+                    path = new List<string>();
                     while (previous.ContainsKey(smallest))
                     {
                         path.Add(smallest);
