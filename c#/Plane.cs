@@ -4,7 +4,7 @@ public class Plane
 {
     private double _fuel;
     private int _numPass, _timezone;
-
+    private List<Passenger> pass = new List<Passenger>; 
     // Constructor
     public Plane(double fuel, int numPass, int timezone)
     {
@@ -14,18 +14,23 @@ public class Plane
     }
     
     // Return the variable
-    public double fuel
+    public double Fuel
     {
      get{return _fuel;}
     }
 
-    public int numPass
+    public int NumPass
     {
      get{return _numPass;}
     }
-    public int timezone
+    public int Timezone
     {
      get{return _timezone;}
+    }
+
+    public Passenger[] Pass
+    {
+        get{return _pass;}
     }
 
     // Increase fuel by x
@@ -40,16 +45,18 @@ public class Plane
         _fuel -= x; 
     }
 
-    // Increase pass by x
-    public void incPass(int x)
+    // Add a new passenger to the plane
+    public void addPass(Passenger x)
     {
-       _numPass += x;
+        pass.Add(x);
+       _numPass += 1;
     }
     
-    // Decrease pass by x
-    public void decPass(int x)
+    // Remove a passenger from the plane
+    public void removePass(Passenger x)
     {
-        _numPass -=x;
+        pass.Remove(new Passenger(){passengerID = x.PassengerID});
+        _numPass -= 1;
     }
 
     // Increase timezone by x
@@ -62,5 +69,13 @@ public class Plane
     public void decTimezone(int x)
     {
         _timezone -= x; 
+    }
+
+    public bool full()
+    {
+        if (_numPass==10)
+            return false;
+        else
+            return true;
     }
 }
