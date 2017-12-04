@@ -5,16 +5,16 @@ using System.Collections.Generic;
 //{
     public class Graph
     {
-        Dictionary<string, Dictionary<string, int>> vertices = new Dictionary<string, Dictionary<string, int>>();
+        Dictionary<string, Dictionary<string, double>> vertices = new Dictionary<string, Dictionary<string, double>>();
 
-        public void add_vertex(string name, Dictionary<string, int> edges)
+        public void add_vertex(string name, Dictionary<string, double> edges)
         {
             vertices[name] = edges;
         }
 
         public List<string> shortest_path(string start, string finish){
             var previous = new Dictionary<string, string>();
-            var distances = new Dictionary<string, int>();
+            var distances = new Dictionary<string, double>();
             var nodes = new List<string>();
 
             List<string> path = null;
@@ -23,11 +23,11 @@ using System.Collections.Generic;
             {
                 if (vertex.Key == start)
                 {
-                    distances[vertex.Key] = 0;
+                    distances[vertex.Key] = 0.0;
                 }
                 else
                 {
-                    distances[vertex.Key] = int.MaxValue;
+                    distances[vertex.Key] = double.MaxValue;// int.MaxValue;
                 }
 
                 nodes.Add(vertex.Key);
@@ -35,8 +35,8 @@ using System.Collections.Generic;
 
             while (nodes.Count != 0)
             {
-                nodes.Sort((x,y) => distances[x] - distances[y]);
-
+                //nodes.Sort((x,y) => distances[x] - distances[y]);
+                nodes.Sort((x, y) => distances[x] < distances[y] ? -1 : (distances[x] > distances[y] ? 1 : 0));
                 var smallest = nodes[0];
                 nodes.Remove(smallest);
                 
@@ -51,7 +51,7 @@ using System.Collections.Generic;
                     break;
                 }
             
-                if (distances[smallest] == int.MaxValue)
+                if (distances[smallest] == double.MaxValue) //int.MaxValue)
                 {
                     break;
                 }
