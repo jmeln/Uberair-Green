@@ -21,6 +21,7 @@ public class UberAirMain
             //CSV input
         }
 
+        // CreateAirportsLists()
         // To be filled in at a later date
         //
         //
@@ -61,9 +62,11 @@ public class UberAirMain
         string dState;
         double dLong = default(double);
         double dLat = default(double);
+        int passCount = 1;
 
         while(true)
         {
+            // Menu Printing
             Console.WriteLine("Do you want to add a passenger to your itinerary list (Y/N)?");
             y = Console.ReadKey().KeyChar;
             if(y == 'n' || y == 'N')
@@ -82,16 +85,19 @@ public class UberAirMain
             Console.Write("Destination State (Two Letter Code): ");
             dState = Console.ReadLine();
 
+            // To compare with CSV formatted strings
             string tempOCity = "\"" + oCity + "\"";
             string tempOState = "\"" + oState + "\"";
             string tempDCity = "\"" + dCity + "\"";
             string tempDState = "\"" + dState + "\"";
 
+            // Search for the Cities
             for(int i = 1; i < cityLines.Length - 1; i++)
             {
                 string[] currCity = cityLines[i].Split(',');
                 if(currCity[3] == tempOCity && currCity[4] == tempOState)
                 {
+                    // Average the Lats and Longs
                     double latSum = Convert.ToDouble(currCity[1]);
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
@@ -113,6 +119,7 @@ public class UberAirMain
                 }
                 else if(currCity[3] == tempDCity && currCity[4] == tempDState)
                 {
+                    // Average the Lats and Longs
                     double latSum = Convert.ToDouble(currCity[1]);
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
@@ -137,20 +144,25 @@ public class UberAirMain
                     break;
             }
 
+            // Check if Cities exist
             if(oLong == default(double) && dLong == default(double))
             {
                 Console.WriteLine("ERROR: Invalid Origin/Destination City. Try Again...");
             }
-
-            City origin = new City(oCity, oState, oLat, oLong, );
-            Passenger A = new Passenger(fName, lName, 
-
+            else
+            {
+                // Add Passenger to the List
+                City origin = new City(oCity, oState, oLat, oLong, 0, 0);
+                City destination = new City(dCity, dState, dLat, dLong, 0, 0);
+                Passenger A = new Passenger(fName, lName, passCount, origin, destination);
+                Passengers.Add(A);
+            }
         }
 
         Console.WriteLine("**\tGENERATING ITINERARY\t**");
     }
 
-    public static void CreateUsableAorportFile()
+    public static void CreateAirportsLists()
     {
         string url;
         string textFromAirportFile = "";

@@ -4,19 +4,20 @@
 //Class to store data relating to individual passengers.
 using System;
 
-public class Passesnger{
-	private string _name;
-	private int _pasengerID;
+public class Passenger{
+	private string _fname;
+    private string _lname;
+	private int _passengerID;
 	private City _cityStart;
 	private City _cityEnd;
 	private double _distTraveled;
 	private double _priceCharged;
 
-	public Passenger(string fName, string lName, int passengerID,City locS, City locE){
+	public Passenger(string fName, string lName, int passengerID, City locS, City locE){
 		//Main constructor
 		_fname = fName; 	//First Name
-		_lname = lname;		//Last Name
-		_passengerID = PassengerID 	//passengerID of type int
+		_lname = lName;		//Last Name
+		_passengerID = passengerID; 	//passengerID of type int
 		_cityStart = locS;	//Starting City of type City
 		_cityEnd = locE;	//Destination City of type City
 		_distTraveled = Distance(_cityStart, _cityEnd);		//Distance traveled by the customer
