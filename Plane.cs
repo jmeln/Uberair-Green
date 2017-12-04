@@ -55,7 +55,7 @@ public class Plane
     // Remove a passenger from the plane
     public void removePass(Passenger x)
     {
-        pass.Remove(new Passenger(x){passengerID = x.PassengerID});
+        pass.Remove(new Passenger(){passengerID = x.PassengerID});
         _numPass -= 1;
     }
 
