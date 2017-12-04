@@ -1,7 +1,7 @@
-class Plane(object):
+class Plane:
 
     # Constructor
-    def __init__(self,fuel=0.0,numpPass=0,timeZone=0):
+    def __init__(self, fuel, numPass, timezone):
         self._fuel = fuel               # Amount of fuel
         self._numPass = numPass         # Number of pass
         self._timezone = timezone       # The timezone the plane is in
@@ -25,7 +25,7 @@ class Plane(object):
     
     # Increase timeZone by x
     def incTimezone(self, x):
-        self._timeZone += x
+        self._timezone += x
 
     # Decrease timeZone by x
     def decTimezone(self, x):
