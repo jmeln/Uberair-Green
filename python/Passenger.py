@@ -16,12 +16,14 @@ def CalcPrice(distT):
 	#Calculates the price the passenger will pay
 	return (distT*1.25)
 class Passenger:
-	def __init__(self, fname, lname, locS, locE):
+	def __init__(self, fname, lname,passengerID, locS, locE):
 		self.fname = fname	#Passenger's firstname
 		self.lname = lname	#Passenger's lastname
+		self.passengerID = passengerID #A unique ID to differentiate passenger obejects.
 		self.locS = locS	#starting location of class City
 		self.locE = locE	#ending location of class City
 		distanceTraveled = Distance(self.locS, self.locE)	#Total distance traveled by the passenger
+		self.distance = distanceTraveled
 		self.price = CalcPrice(distanceTraveled)	#Price the passenger will pay
 
 
