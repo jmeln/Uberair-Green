@@ -2,23 +2,26 @@
 //Class to store data relating to individual passengers.
 using System;
 
-public class Passenger{
+public class Passesnger{
 	private string _name;
+	private int _pasengerID;
 	private City _cityStart;
 	private City _cityEnd;
 	private double _distTraveled;
 	private double _priceCharged;
 
-//Main Constructor
-	public Passenger(string fName, string lName, City locS, City locE){
-		_name = lName + ", " + fName;
-		_cityStart = locS;
-		_cityEnd = locE;
-		_distTraveled = Distance(_cityStart, _cityEnd);
-		_priceCharged = CalcPrice(_distTraveled);
+	public Passenger(string fName, string lName, int passengerID,City locS, City locE){
+		//Main constructor
+		_fname = fName; 	//First Name
+		_lname = lname;		//Last Name
+		_passengerID = PassengerID 	//passengerID of type int
+		_cityStart = locS;	//Starting City of type City
+		_cityEnd = locE;	//Destination City of type City
+		_distTraveled = Distance(_cityStart, _cityEnd);		//Distance traveled by the customer
+		_priceCharged = CalcPrice(_distTraveled);		//Price charged to the customer.s
 	}
-//Function to calculate the distance between the source and the destination
 	private static double Distance(City locS, City locE){
+		//Function to calculate the distance between the source and destination
 		double d = 0;
 		double a1 = DegreesToRadians(locS.Latitude);
 		double a2 = DegreesToRadians(locE.Latitude);
@@ -28,28 +31,36 @@ public class Passenger{
 		d = ((2*6373)*(Math.Asin(Math.Sqrt(d))));
 		return d;
 	}
-//Converts a number in degrees to radians
 	private static double DegreesToRadians(double num){
+		//Converts a number in degrees to radians
 		return ((Math.PI/180)*num);
 	}
-//Converts a number in radians to degrees
 	private static double RadiansToDegrees(double num){
+		//Converts a number in radians to degrees
 		return ((num*180)/Math.PI);
 	}
-//Calculates the price per mile between source and destination.
 	private static double CalcPrice(double distT){
+		//Calculates the price per mile between source and destination.
 		return (distT*1.25);	
 	}
-	//Returns the name of the customer
-	public string Name{
-		get{return _name;}
+	public string FirstName{
+		//Returns the first name of the customer.
+		get{return _fname;}
 	}
-//Returns the distance the customer is to travel.
+	public string LastName{
+		//Returns the last name of the customer.
+		get{return _lname;}
+	}
+	public int PassengerID{
+		//Returns the PassengerID
+		get{return _passengerID;}
+	}
 	public double DistanceTraveled{
+		//Returns the distance the customer is to travel.
 		get{return _distTraveled;}
 	}
-//Returns the price charged to the individual customer. 
 	public double Price{
+		//Returns the price charged to the customer
 		get{return _priceCharged;}
 	}
 }
