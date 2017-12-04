@@ -8,7 +8,7 @@ class Plane:
     
     # Recharge the Fuel
     def incFuel(self, x):
-        self_fuel = x
+        self_fuel += x
    
     # Decrease the Fuel by x
     def decFuel(self, x):
