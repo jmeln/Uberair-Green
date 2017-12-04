@@ -25,5 +25,3 @@ class Passenger:
 		distanceTraveled = Distance(self.locS, self.locE)	#Total distance traveled by the passenger
 		self.Distance = distanceTraveled
 		self.Price = CalcPrice(distanceTraveled)	#Price the passenger will pay
-
-
