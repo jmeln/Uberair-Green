@@ -5,7 +5,9 @@ public class Plane
     private double _fuel;
     private int _numPass, _timezone;
     private List<Passenger> pass = new List<Passenger>; 
+
     // Constructor
+    
     public Plane(double fuel, int numPass, int timezone)
     {
         _fuel = fuel;
