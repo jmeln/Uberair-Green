@@ -5,12 +5,11 @@ public class City
     //Private members
     private string _cityName, _state;
     private double _latitude, _longitude;
-    private int _timeZone, _sunSet, _passengersWaiting;
-//    private Airport _nearestLighted, _nearestUnlighted; //Waiting for airport class
+    private int _timeZone, _sunSet;
     
     //Constructor
     public City(string cityName, string state, double latitude, double longitude,
-                    int timeZone, int sunSet, int passengersWaiting)
+                    int timeZone, int sunSet)
     {
         _cityName = cityName;
         _state = state;
@@ -18,7 +17,6 @@ public class City
         _longitude = longitude;
         _timeZone = timeZone;
         _sunSet = sunSet;
-        _passengersWaiting = passengersWaiting;
     }
     //Public getters 
     public string CityName
@@ -45,18 +43,4 @@ public class City
     {
         get{return _sunSet;}
     }
-    public int PassengersWaiting
-    {
-        get{return _passengersWaiting;}
-    }
-/*    public int NearestLighted
-    {
-        get{return _nearestLighted;}
-        set{_nearestLighted;}
-    }
-    public int NearestUnLighted
-    {
-        get{return _nearestUnLighted;}
-        set{_nearestUnLighted;}
-    } waiting for airport */
 }

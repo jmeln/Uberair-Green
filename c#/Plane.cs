@@ -2,42 +2,80 @@ using System;
 
 public class Plane
 {
-    private double plane_fuel,plane_subtractFuel;
-    private int plane_numPass, plane_timeZone,plane_addPass,plane_removePass;
-
-    public Plane(double fuel, double subtractFuel, int numPass, int timeZone, int addPass, int removePass)
+    private double _fuel;
+    private int _numPass, _timezone;
+    private List<Passenger> pass = new List<Passenger>; 
+    // Constructor
+    public Plane(double fuel, int numPass, int timezone)
     {
-        plane_fuel = fuel;
-        plane_subtractFuel = subtractFuel;
-        plane_numPass = numPass;
-        plane_timeZone = timeZone;
-        plane_addPass = addPass;
-        plane_removePass = removePass;
+        _fuel = fuel;
+        _numPass = numPass;
+        _timezone = timezone;
+    }
+    
+    // Return the variable
+    public double Fuel
+    {
+     get{return _fuel;}
     }
 
-    public double fuel
+    public int NumPass
     {
-     get{return plane_fuel;}
+     get{return _numPass;}
+    }
+    public int Timezone
+    {
+     get{return _timezone;}
     }
 
-    double subtractFuel
+    public Passenger[] Pass
     {
-     get{return plane_subtractFuel;}
-     }
-    int numPass
-    {
-     get{return plane_numPass;}
+        get{return _pass;}
     }
-    int timeZone
+
+    // Increase fuel by x
+    public void incFuel(double x)
     {
-     get{return plane_timeZone;}
+        _fuel += x; 
     }
-    int addPass
+    
+    // Decrease fuel by x
+    public void decFuel(double x)
     {
-       get{return plane_addPass;}
+        _fuel -= x; 
     }
-    int removePass
+
+    // Add a new passenger to the plane
+    public void addPass(Passenger x)
     {
-       get{return plane_removePass;}
+        pass.Add(x);
+       _numPass += 1;
+    }
+    
+    // Remove a passenger from the plane
+    public void removePass(Passenger x)
+    {
+        pass.Remove(new Passenger(){passengerID = x.PassengerID});
+        _numPass -= 1;
+    }
+
+    // Increase timezone by x
+    public void incTimezone(int x)
+    {
+        _timezone += x; 
+    }
+
+    // Decrease timezone by x
+    public void decTimezone(int x)
+    {
+        _timezone -= x; 
+    }
+
+    public bool full()
+    {
+        if (_numPass==10)
+            return false;
+        else
+            return true;
     }
 }
