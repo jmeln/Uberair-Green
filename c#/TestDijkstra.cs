@@ -15,7 +15,9 @@ class TestDijkstra
         g.add_vertex("Gainesville", new Dictionary<string, double>() {{"Carson City", 4}, {"Pheonix", 9}});
         g.add_vertex("Houston", new Dictionary<string, double>() {{"Eatonton", 1}, {"Pheonix", 3}});
         g.shortest_path("Atlanta", "Houston").ForEach( x => Console.WriteLine(x) );
-    
+ 
+        Console.WriteLine(Map_Math.distance(1.0, 15.0, 2.0, 56.0));
+   
     }
 
 }
