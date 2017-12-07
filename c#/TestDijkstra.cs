@@ -5,7 +5,7 @@ class TestDijkstra
 {
     static void Main()
     {
-        Graph g = new Graph();
+        DijkstraGraph g = new DijkstraGraph();
         g.add_vertex("Atlanta", new Dictionary<string, double>() {{"Baltimore", 7},{"Carson City", 8}});
         g.add_vertex("Baltimore", new Dictionary<string, double>() {{"Atlanta", 7}, {"Pheonix", 2}});
         g.add_vertex("Carson City", new Dictionary<string, double>() {{"Atlanta", 8}, {"Pheonix", 6}, {"Gainesville", 4}});

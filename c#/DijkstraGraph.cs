@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 //namespace Dijkstras
 //{
-    public class Graph
+    public class DijkstraGraph 
     {
         Dictionary<string, Dictionary<string, double>> vertices = new Dictionary<string, Dictionary<string, double>>();
 
