@@ -43,7 +43,7 @@ public class Passenger{
 		return ((num*180)/Math.PI);
 	}
 	private static double CalcPrice(double distT){
-		//Calculates the price per mile between source and destination.
+        //Calculates the price per mile between source and destination.
 		return (distT*1.25);	
 	}
 	public string FirstName{
