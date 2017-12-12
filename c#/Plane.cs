@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 public class Plane
 {
     private double _fuel;
     private int _numPass, _timezone;
-    private List<Passenger> pass = new List<Passenger>; 
+    private List<Passenger> pass = new List<Passenger>(); 
     // Constructor
     public Plane(double fuel, int numPass, int timezone)
     {
@@ -28,10 +29,10 @@ public class Plane
      get{return _timezone;}
     }
 
-    public Passenger[] Pass
-    {
-        get{return _pass;}
-    }
+    //public Passenger[] Pass
+    //{
+      //  get{return pass;}
+    //}
 
     // Increase fuel by x
     public void incFuel(double x)
@@ -55,7 +56,7 @@ public class Plane
     // Remove a passenger from the plane
     public void removePass(Passenger x)
     {
-        pass.Remove(new Passenger(){passengerID = x.PassengerID});
+        pass.Remove(x);
         _numPass -= 1;
     }
 

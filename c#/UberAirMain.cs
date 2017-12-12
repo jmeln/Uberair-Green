@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections;
+using System.Text;
 
 public class UberAirMain
 {
@@ -36,12 +37,18 @@ public class UberAirMain
         string textFromCityFile = "";
         string textFromCityFile2 = "";
 
+            string path = "zip_code_states.csv";
+            textFromCityFile = File.ReadAllText(path);
+            Console.WriteLine(textFromCityFile);
         try
         {
             //Url to be accessed
-            url1 = "http://theochem.mercer.edu/csc330/data/zip_codes_states.csv";
+            //url1 = "http://theochem.mercer.edu/csc330/data/zip_codes_states.csv";
             //Pushes contents of the file to textFromAirportFile
-            textFromCityFile = (new System.Net.WebClient()).DownloadString(url1);
+            //textFromCityFile = (new System.Net.WebClient()).DownloadString(url1);
+
+            //string path = @"zip_codes_states.csv";
+           // textFromCityFile = File.ReadAllText(path);
 
             url2 = "http://theochem.mercer.edu/csc330/data/cityzipcodes.csv";
             textFromCityFile2 = (new System.Net.WebClient()).DownloadString(url2);
@@ -123,14 +130,16 @@ public class UberAirMain
             {
                 string[] currCity = cityLines[i].Split(',');
                 
-                if(currCity[3] == tempOCity && currCity[4] == tempOState)
+                try
+                {
+                if(currCity[3] == tempOCity  && currCity[4] == tempOState)
                 {
                     // Average the Lats and Longs
                     double latSum = Convert.ToDouble(currCity[1]);
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
                     int count = 1;
-                    while(currCity[3] == tempOCity && currCity[4] == tempOState)
+                    /*while(currCity[3] == tempOCity && currCity[4] == tempOState)
                     {
                         i++;
                         currCity = cityLines[i].Split(',');
@@ -138,7 +147,7 @@ public class UberAirMain
                         latSum += Convert.ToDouble(currCity[1]);
                         longSum += Convert.ToDouble(currCity[2]);
                         count++;
-                    }
+                    }*/
 
                     latAvg = latSum / count;
                     longAvg = longSum / count;
@@ -152,7 +161,7 @@ public class UberAirMain
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
                     int count = 1;
-                    while(currCity[3] == tempDCity && currCity[4] == tempDState)
+                    /*while(currCity[3] == tempDCity && currCity[4] == tempDState)
                     {
                         i++;
                         currCity = cityLines[i].Split(',');
@@ -160,12 +169,17 @@ public class UberAirMain
                         latSum += Convert.ToDouble(currCity[1]);
                         longSum += Convert.ToDouble(currCity[2]);
                         count++;
-                    }
+                    }*/
 
                     latAvg = latSum / count;
                     longAvg = longSum / count;
                     dLong = longAvg;
                     dLat = latAvg;
+                }
+                }
+                catch(System.FormatException ee)
+                {
+                    continue;
                 }
 
                 if(oLong != default(double) && dLong != default(double))
@@ -257,9 +271,21 @@ public class UberAirMain
         for(int i = 1; i < airportLines.Length - 1; i++)
         {
             string[] currAirport = airportLines[i].Split(',');
-            double Lat = Convert.ToDouble(currAirport[4]);
-            double Long = Convert.ToDouble(currAirport[5]);
-            string currAirCode = currAirport[1];
+
+            double Lat;
+            double Long;
+            string currAirCode;
+
+            try
+            {
+                Lat = Convert.ToDouble(currAirport[4]);
+                Long = Convert.ToDouble(currAirport[5]);
+                currAirCode = currAirport[1];
+            }
+            catch(System.FormatException eee)
+            {
+                continue;
+            }
 
             double oDistance = Distance(mycity.Latitude, mycity.Longitude, Lat, Long);
 
@@ -270,14 +296,18 @@ public class UberAirMain
                 
                 if(currRunCode.Equals(currAirCode))
                 {
-                    string supremeOverlord = currRunLine.Split(',')[3];
-                    Console.WriteLine(supremeOverlord);
-                    //supremeOverlord = supremeOverlord.Substring(1, supremeOverlord.Length - 1);
-                    //supremeOverlord = supremeOverlord.Substring(0, supremeOverlord.Length - 2);
+                    string Satan = currRunLine.Split(',')[3];
+                    //Console.WriteLine(currRunLine.Split(',').Length);
+                    //Satan = Satan.Substring(1, Satan.Length - 1);
+                    //Satan = Satan.Substring(0, Satan.Length - 2);
 
-                    if(supremeOverlord.Length > 5)
+                    Satan = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(Satan)); //Found it on the ole interwebs
+                    if(!Satan.Contains("?"))
                     {
-                        int length = Int32.Parse(supremeOverlord);
+                        int length = 0;
+                        bool result = Int32.TryParse(Satan, out length);
+                        //Console.WriteLine(result);
+
                         string surface = currRunLine.Split(',')[5];
 
                         if((surface.Contains("\"TURF\"") || surface.Contains("\"CONC\"") 
