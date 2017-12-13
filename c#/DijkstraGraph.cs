@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 //namespace Dijkstras
 //{
-    public class DijkstraGraph 
+    public class DijkstraGraph
     {
         Dictionary<string, Dictionary<string, double>> vertices = new Dictionary<string, Dictionary<string, double>>();
 
@@ -39,18 +39,20 @@ using System.Collections.Generic;
                 nodes.Sort((x, y) => distances[x] < distances[y] ? -1 : (distances[x] > distances[y] ? 1 : 0));
                 var smallest = nodes[0];
                 nodes.Remove(smallest);
-                
+
                 if (smallest == finish)
                 {
                     path = new List<string>();
                     while (previous.ContainsKey(smallest))
                     {
-                        path.Add(smallest);
+                        path.Add(smallest + "\t" + distances[smallest]);
+                        Console.WriteLine(distances[smallest]);
+                        //path.Add(distances[0] + string.Empty);
                         smallest = previous[smallest];
                     }
                     break;
                 }
-            
+
                 if (distances[smallest] == double.MaxValue) //int.MaxValue)
                 {
                     break;
