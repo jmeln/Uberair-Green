@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 class TestDijkstra
 {
@@ -15,26 +16,58 @@ class TestDijkstra
         g.add_vertex("Gainesville", new Dictionary<string, double>() {{"Carson City", 4}, {"Pheonix", 9}});
         g.add_vertex("Houston", new Dictionary<string, double>() {{"Eatonton", 1}, {"Pheonix", 3}});
         g.shortest_path("Atlanta", "Houston").ForEach( x => Console.WriteLine(x) );
- 
+
         Console.WriteLine(Map_Math.distance(1.0, 15.0, 2.0, 56.0));
-   
-        City[] cities = new City[5];
-        cities[0] = new City("Holtsville", "A", 40.922326, -72.637078, 1, 1);
-        cities[1] = new City("Adjuntas", "A", 18.165273,  -66.722583, 1, 1);
-        cities[2] = new City("Aguada", "B", 18.393103, -67.180953, 1, 1);
-        cities[3] = new City("Maricao", "C", 18.172947, -66.944111, 1, 1);
-        cities[4] = new City("Anasco", "D", 18.288685, -67.139696, 1, 1);
+
+        int[] popular_destinations = new int[11];
+        for(int d = 0; d < popular_destinations.Length; d++)
+            popular_destinations[d] = 0;
+
+
+        City[] cities = new City[11];
+        cities[0] = new City("Daytona", "FL", 29.2108, 81.0228, 1, 1);
+        cities[1] = new City("Memphis", "TN", 35.1495, 90.0490, 1, 1);
+        cities[2] = new City("Atlanta", "GA", 33.7490, 84.3880, 1, 1);
+        cities[3] = new City("Columbia", "SC", 34.0007, 81.0348, 1, 1);
+        cities[4] = new City("Johnson City", "TN", 36.3134, 82.3535, 1, 1);
+        cities[5] = new City("Tampa", "FL", 27.9506, 82.4572, 1, 1);
+        cities[6] = new City("Oxford", "MS", 34.3665, 89.5192, 1, 1);
+        cities[7] = new City("Arkadelphia", "AR", 34.1209, 93.0538, 1, 1);
+        cities[8] = new City("Durham", "NC", 35.9940, 78.8986, 1, 1);
+        cities[9] = new City("Kileen", "TX", 31.1171, 97.7278, 1, 1);
+        cities[10] = new City("Miami", "FL", 25.7617, 80.1918, 1, 1);
+
+
+        Console.WriteLine("F");
+
+        using(var reader = new StreamReader(@"input.txt"))
+        {
+            List<string> listA = new List<string>();
+            List<string> listB = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+
+                for(int c = 0; c < cities.Length; c++)
+                    if(cities[c].CityName == values[4]){
+                        popular_destinations[c]++;
+                    }
+            }
+        }
+
 
 
         DijkstraGraph city_graph = new DijkstraGraph();
 
         for (int c = 0; c < cities.Length; c++){
-            
+
             Dictionary<string, double> dict_temp = new Dictionary<string, double>();
             for(int d = 0; d < cities.Length; d++){
                 while (d != c){
-                    dict_temp.Add(cities[d].CityName, 
-                        Map_Math.distance(cities[c].Longitude, cities[c].Latitude, cities[d].Longitude, cities[d].Latitude));
+
+                    double distance = Map_Math.distance(cities[c].Longitude, cities[c].Latitude, cities[d].Longitude, cities[d].Latitude);
+                    dict_temp.Add(cities[d].CityName, distance-0.25*popular_destinations[d]);
                     break;
                 }
             }
@@ -42,7 +75,7 @@ class TestDijkstra
             city_graph.add_vertex(cities[c].CityName, dict_temp);
         }
 
-        city_graph.shortest_path("Holtsville", "Anasco").ForEach( x => Console.WriteLine(x) );
+        city_graph.shortest_path("Atlanta", "Oxford").ForEach( x => Console.WriteLine(x) );
 
 
     }
