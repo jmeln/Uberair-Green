@@ -36,7 +36,7 @@ using System.Collections.Generic;
             while (nodes.Count != 0)
             {
                 //nodes.Sort((x,y) => distances[x] - distances[y]);
-                nodes.Sort((x, y) => distances[x] < distances[y] ? -1 : (distances[x] > distances[y] ? 1 : 0));
+                nodes.Sort((x, y) => distances[x] < distances[y] ? 1 : (distances[x] > distances[y] ? -1 : 0));
                 var smallest = nodes[0];
                 nodes.Remove(smallest);
 
@@ -46,7 +46,6 @@ using System.Collections.Generic;
                     while (previous.ContainsKey(smallest))
                     {
                         path.Add(smallest + "\t" + distances[smallest]);
-                        Console.WriteLine(distances[smallest]);
                         //path.Add(distances[0] + string.Empty);
                         smallest = previous[smallest];
                     }
