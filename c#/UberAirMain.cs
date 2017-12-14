@@ -1,8 +1,7 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections;
-using System.Text;
+using System.Collections.Generic;
 
 public class UberAirMain
 {
@@ -11,7 +10,8 @@ public class UberAirMain
         ArrayList Passengers = new ArrayList();
         if(args.Length == 0)
         {
-            GetUserInput(ref Passengers);
+//            GetUserInput(ref Passengers);
+            runSimulation();
         }
         else if(args.Length > 1)
         {
@@ -30,28 +30,148 @@ public class UberAirMain
         //
         //
     }
+    ////// THIS IS A TEST SECTION //////
+    public static void runSimulation()
+    {
+        City macon = new City("Macon" ,"GA", 83.65, 32.69, 1, 1700);
+        City atlanta = new City("Atlanta" ,"GA", 84.43, 33.64, 1, 1700);
+        City birmingham = new City("Birmingham" ,"AL", 86.75, 33.56, 1, 1700);
 
+        Passenger matt = new Passenger("Matt", "Schnider", 1, macon, atlanta);
+        Passenger cayla = new Passenger("Cayla", "Schnider", 1, macon, atlanta);
+        Passenger andy = new Passenger("Andy", "Pounds", 1, birmingham, macon);
+        Passenger jarrett = new Passenger("Jarret", "Melnick", 1, atlanta, birmingham);
+        Passenger jake = new Passenger("Jake", "Foster", 1, macon, atlanta);
+        Passenger emily = new Passenger("Emily", "Herron", 1, macon, atlanta);
+        Passenger brett = new Passenger("Brett", "Wilson", 1, atlanta, birmingham);
+        Passenger phuc = new Passenger("Phuc", "Lee", 1, birmingham, macon);
+
+        Plane learJet = new Plane(300, 1, 1);
+
+        learJet.addPass(matt);
+        learJet.addPass(cayla);
+        learJet.addPass(jake);
+        learJet.addPass(emily);
+        List<Passenger> temp = learJet.Pass();
+        double totalMoney = 0;
+        double totalDistance = 0;
+        double totalCost = 0;
+//        while(temp.Count > 0)
+        {  
+            Console.WriteLine("Passengers on board");
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName);
+        
+            }
+            Console.WriteLine();
+            Console.WriteLine("Flying from "+ macon.CityName + " to " + atlanta.CityName+"...");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("Landing in " + atlanta.CityName+"...");
+            System.Threading.Thread.Sleep(1500);
+            totalDistance += matt.DistanceTraveled;
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName + " "+ macon.CityName + " "  + atlanta.CityName + " " + temp[i].DistanceTraveled + " miles "+ " $" + temp[i].Price);
+                System.Threading.Thread.Sleep(500);
+                totalMoney += temp[i].Price;
+        
+            }
+
+            learJet.removePass(matt);
+            learJet.removePass(cayla);
+            learJet.removePass(jake);
+            learJet.removePass(emily);
+            Console.WriteLine();
+
+            learJet.addPass(jarrett);
+            learJet.addPass(brett);
+            temp = learJet.Pass();
+
+            Console.WriteLine("Passengers on board");
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName);
+        
+            }
+            Console.WriteLine();
+            Console.WriteLine("Flying from "+ atlanta.CityName + " to " + birmingham.CityName+"...");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("Landing in " + birmingham.CityName+"...");
+            System.Threading.Thread.Sleep(1500);
+            totalDistance += jarrett.DistanceTraveled;
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName + " "+ macon.CityName + " "  + atlanta.CityName + " " + temp[i].DistanceTraveled + " miles "+ " $" + temp[i].Price);
+                System.Threading.Thread.Sleep(500);
+                totalMoney += temp[i].Price;
+
+            }
+
+            learJet.removePass(jarrett);
+            learJet.removePass(brett);
+            Console.WriteLine();
+
+
+            learJet.addPass(phuc);
+            learJet.addPass(andy);
+            temp = learJet.Pass();
+            Console.WriteLine("Passengers on board");
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName);
+        
+            }
+            Console.WriteLine();
+            Console.WriteLine("Flying from "+ birmingham.CityName + " to " + macon.CityName+"...");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("Landing in " + macon.CityName+"...");
+            System.Threading.Thread.Sleep(1500);
+            totalDistance += phuc.DistanceTraveled;
+            for(int i = 0 ; i < temp.Count; i++)
+            {
+                 
+                Console.WriteLine(temp[i].FirstName + " " +temp[i].LastName + " "+ macon.CityName + " "  + atlanta.CityName + " " + temp[i].DistanceTraveled + " miles "+ " $" + temp[i].Price);
+                System.Threading.Thread.Sleep(500);
+                totalMoney += temp[i].Price;
+
+            }
+
+            learJet.removePass(phuc);
+            learJet.removePass(andy);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Total money collected: $" + totalMoney);
+            Console.WriteLine("Total distance flown: " + totalDistance);
+            totalCost = totalDistance * 2.75;
+            Console.WriteLine("Operationg expenses: " + totalCost);
+            if(totalMoney - totalCost > 0)
+            {
+                Console.WriteLine("Profit: $" + (totalMoney - totalCost));
+            }
+            else
+                Console.WriteLine("Loss: $" + (totalMoney - totalCost));
+
+
+
+        }
+    }
     public static void GetUserInput(ref ArrayList Passengers)
     {
-        string url1, url2;
+        string url;
         string textFromCityFile = "";
-        string textFromCityFile2 = "";
 
-            string path = "zip_code_states.csv";
-            textFromCityFile = File.ReadAllText(path);
-            Console.WriteLine(textFromCityFile);
         try
         {
             //Url to be accessed
-            //url1 = "http://theochem.mercer.edu/csc330/data/zip_codes_states.csv";
+            url = "http://theochem.mercer.edu/csc330/data/zip_codes_states.csv";
             //Pushes contents of the file to textFromAirportFile
-            //textFromCityFile = (new System.Net.WebClient()).DownloadString(url1);
-
-            //string path = @"zip_codes_states.csv";
-           // textFromCityFile = File.ReadAllText(path);
-
-            url2 = "http://theochem.mercer.edu/csc330/data/cityzipcodes.csv";
-            textFromCityFile2 = (new System.Net.WebClient()).DownloadString(url2);
+            textFromCityFile = (new System.Net.WebClient()).DownloadString(url);
         }
         catch (IOException e)
         {
@@ -59,8 +179,6 @@ public class UberAirMain
         }
 
         string[] cityLines = textFromCityFile.Split(
-                new[] { Environment.NewLine }, StringSplitOptions.None);
-        string[] sunsetLines = textFromCityFile2.Split(
                 new[] { Environment.NewLine }, StringSplitOptions.None);
 
         Console.WriteLine("Flight Itinerary Builder Programn\n");
@@ -72,12 +190,10 @@ public class UberAirMain
         string oState;
         double oLong = default(double);
         double oLat = default(double);
-        int oTimeZone = 0;
         string dCity;
         string dState;
         double dLong = default(double);
         double dLat = default(double);
-        int dTimeZone = 0;
         int passCount = 1;
 
         while(true)
@@ -107,39 +223,18 @@ public class UberAirMain
             string tempDCity = "\"" + dCity + "\"";
             string tempDState = "\"" + dState + "\"";
 
-
-            for(int j = 1; j < sunsetLines.Length - 1; j++)
-            {
-                if(sunsetLines[j].Length > 5) // Garbage in the file. It works, don't question it
-                {
-                    string[] currCity2 = sunsetLines[j].Split(',');
-
-                    if(currCity2[1] == tempOCity && currCity2[2] == tempOState)
-                    {
-                        oTimeZone = Int32.Parse(currCity2[5]);
-                    }
-                    else if(currCity2[1] == tempDCity && currCity2[2] == tempDState)
-                    {
-                        dTimeZone = Int32.Parse(currCity2[5]);
-                    }
-                }
-            }
-
             // Search for the Cities
             for(int i = 1; i < cityLines.Length - 1; i++)
             {
                 string[] currCity = cityLines[i].Split(',');
-                
-                try
-                {
-                if(currCity[3] == tempOCity  && currCity[4] == tempOState)
+                if(currCity[3] == tempOCity && currCity[4] == tempOState)
                 {
                     // Average the Lats and Longs
                     double latSum = Convert.ToDouble(currCity[1]);
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
                     int count = 1;
-                    /*while(currCity[3] == tempOCity && currCity[4] == tempOState)
+                    while(currCity[3] == tempOCity && currCity[4] == tempOState)
                     {
                         i++;
                         currCity = cityLines[i].Split(',');
@@ -147,7 +242,7 @@ public class UberAirMain
                         latSum += Convert.ToDouble(currCity[1]);
                         longSum += Convert.ToDouble(currCity[2]);
                         count++;
-                    }*/
+                    }
 
                     latAvg = latSum / count;
                     longAvg = longSum / count;
@@ -161,7 +256,7 @@ public class UberAirMain
                     double longSum = Convert.ToDouble(currCity[2]);
                     double latAvg, longAvg;
                     int count = 1;
-                    /*while(currCity[3] == tempDCity && currCity[4] == tempDState)
+                    while(currCity[3] == tempDCity && currCity[4] == tempDState)
                     {
                         i++;
                         currCity = cityLines[i].Split(',');
@@ -169,17 +264,12 @@ public class UberAirMain
                         latSum += Convert.ToDouble(currCity[1]);
                         longSum += Convert.ToDouble(currCity[2]);
                         count++;
-                    }*/
+                    }
 
                     latAvg = latSum / count;
                     longAvg = longSum / count;
                     dLong = longAvg;
                     dLat = latAvg;
-                }
-                }
-                catch(System.FormatException ee)
-                {
-                    continue;
                 }
 
                 if(oLong != default(double) && dLong != default(double))
@@ -194,37 +284,17 @@ public class UberAirMain
             else
             {
                 // Add Passenger to the List
-                City origin = new City(oCity, oState, oLat, oLong, oTimeZone, 19);
-                City destination = new City(dCity, dState, dLat, dLong, dTimeZone, 19);
+                City origin = new City(oCity, oState, oLat, oLong, 0, 0);
+                City destination = new City(dCity, dState, dLat, dLong, 0, 0);
                 Passenger A = new Passenger(fName, lName, passCount, origin, destination);
                 Passengers.Add(A);
-                FindClosestAirport(origin);
-                FindClosestAirport(destination);
             }
         }
 
         Console.WriteLine("**\tGENERATING ITINERARY\t**");
     }
 
-    public static double Distance(double oLat, double oLong, double dLat, double dLong)
-    {
-        double d = 0;
-        double a1 = DegreesToRadians(oLat);
-        double a2 = DegreesToRadians(dLat);
-        double b1 = DegreesToRadians(oLong);
-        double b2 = DegreesToRadians(dLong);
-
-        d = ((1 - Math.Cos(2*((a2-a1)/2)))/2) + Math.Cos(a1)*Math.Cos(a2)*((1 - Math.Cos(2*((b2-b1)/2)))/2);
-        d = ((2*6373)*(Math.Asin(Math.Sqrt(d))));
-        return d;
-    }
-
-    public static double DegreesToRadians(double num)
-    {
-        return ((num*180)/Math.PI);
-    }
-
-    public static void FindClosestAirport(City mycity)
+    public static void CreateAirportsLists()
     {
         string url;
         string textFromAirportFile = "";
@@ -265,67 +335,46 @@ public class UberAirMain
             StringSplitOptions.None);
 
         const int minRunwayLength = 3000;
-        int closeIndex = 0;
-        double closeDistance = 1000000;
-
-        for(int i = 1; i < airportLines.Length - 1; i++)
+        System.IO.StreamWriter file = new System.IO.StreamWriter("UsableAirports.txt");
+        
+        Console.WriteLine(airportLines[1]);
+        Console.WriteLine(runwayLines[1]);
+        
+        for(int i = 0; i < airportLines.Length - 1; i++)
         {
-            string[] currAirport = airportLines[i].Split(',');
+            string currLine = airportLines[i];
+            string currAirCode = currLine.Split(',')[1];
+            string currRunLine;
+            string surface;
+            string length;
 
-            double Lat;
-            double Long;
-            string currAirCode;
-
-            try
+            for(int j = 0; j < runwayLines.Length - 1; j++)
             {
-                Lat = Convert.ToDouble(currAirport[4]);
-                Long = Convert.ToDouble(currAirport[5]);
-                currAirCode = currAirport[1];
-            }
-            catch(System.FormatException eee)
-            {
-                continue;
-            }
-
-            double oDistance = Distance(mycity.Latitude, mycity.Longitude, Lat, Long);
-
-            for(int j = 1; j < runwayLines.Length - 1; j++)
-            {
-                string currRunLine = runwayLines[j];
+                Console.Write(i);
+                Console.Write("\t");
+                Console.WriteLine(j);
+                
+                currRunLine = runwayLines[j];
                 string currRunCode = currRunLine.Split(',')[2];
                 
                 if(currRunCode.Equals(currAirCode))
                 {
-                    string Satan = currRunLine.Split(',')[3];
-                    //Console.WriteLine(currRunLine.Split(',').Length);
-                    //Satan = Satan.Substring(1, Satan.Length - 1);
-                    //Satan = Satan.Substring(0, Satan.Length - 2);
-
-                    Satan = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(Satan)); //Found it on the ole interwebs
-                    if(!Satan.Contains("?"))
+                    length = currRunLine.Split(',')[3];
+                    int val = 0;
+                    Int32.TryParse(length, out val );
+                    surface = currRunLine.Split(',')[5];
+                    if((surface.Contains("\"TURF\"") || surface.Contains("\"CONC\"") || surface.Contains("\"ASPH\""))
+                        && val >= minRunwayLength)
                     {
-                        int length = 0;
-                        bool result = Int32.TryParse(Satan, out length);
-                        //Console.WriteLine(result);
-
-                        string surface = currRunLine.Split(',')[5];
-
-                        if((surface.Contains("\"TURF\"") || surface.Contains("\"CONC\"") 
-                                || surface.Contains("\"ASPH\"")) && length >= minRunwayLength)
-                        {
-                            if(oDistance < closeDistance)
-                            {
-                                closeDistance = oDistance;
-                                closeIndex = i;
-                            }
-                        }
+                        file.WriteLine(currLine);
+                        Console.WriteLine(currLine);
                     }
+
+                    break;
                 }
+
             }
         }
-
-        Console.WriteLine("HERE");
-        Console.WriteLine("Closest Airport to " + mycity.CityName + " is " + airportLines[closeIndex].Split(',')[3]);
     }
 }
 

@@ -4,7 +4,7 @@
 
 CSHARP = mcs
 MAIN_CLASS = UberAirMain.cs
-OBJECT_CLASSES = Airport.cs City.cs Passenger.cs Plane.cs Dijkstra.cs
+OBJECT_CLASSES = Airport.cs City.cs Passenger.cs Plane.cs 
 OPT = -optimize+
 
 all:

@@ -30,10 +30,10 @@ public class Plane
      get{return _timezone;}
     }
 
-    //public Passenger[] Pass
-    //{
-      //  get{return pass;}
-    //}
+    public List<Passenger> Pass()
+    {
+        return pass;
+    }
 
     // Increase fuel by x
     public void incFuel(double x)
