@@ -46,7 +46,6 @@ using System.Collections.Generic;
                     while (previous.ContainsKey(smallest))
                     {
                         path.Add(smallest + "\t" + distances[smallest]);
-                        Console.WriteLine(distances[smallest]);
                         //path.Add(distances[0] + string.Empty);
                         smallest = previous[smallest];
                     }
