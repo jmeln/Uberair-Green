@@ -36,7 +36,7 @@ using System.Collections.Generic;
             while (nodes.Count != 0)
             {
                 //nodes.Sort((x,y) => distances[x] - distances[y]);
-                nodes.Sort((x, y) => distances[x] < distances[y] ? 1 : (distances[x] > distances[y] ? -1 : 0));
+                nodes.Sort((x, y) => distances[x] < distances[y] ? -1 : (distances[x] > distances[y] ? 1 : 0));
                 var smallest = nodes[0];
                 nodes.Remove(smallest);
 
