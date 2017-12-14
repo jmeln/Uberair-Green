@@ -6,19 +6,6 @@ class TestDijkstra
 {
     static void Main()
     {
-        DijkstraGraph g = new DijkstraGraph();
-        g.add_vertex("Atlanta", new Dictionary<string, double>() {{"Baltimore", 7},{"Carson City", 8}});
-        g.add_vertex("Baltimore", new Dictionary<string, double>() {{"Atlanta", 7}, {"Pheonix", 2}});
-        g.add_vertex("Carson City", new Dictionary<string, double>() {{"Atlanta", 8}, {"Pheonix", 6}, {"Gainesville", 4}});
-        g.add_vertex("Denver", new Dictionary<string, double>() {{"Pheonix", 8}});
-        g.add_vertex("Eatonton", new Dictionary<string, double>() {{"Houston", 1}});
-        g.add_vertex("Pheonix", new Dictionary<string, double>() {{"Baltimore", 2}, {"Carson City", 6}, {"Denver", 8}, {"Gainesville", 9}, {"Houston", 3}});
-        g.add_vertex("Gainesville", new Dictionary<string, double>() {{"Carson City", 4}, {"Pheonix", 9}});
-        g.add_vertex("Houston", new Dictionary<string, double>() {{"Eatonton", 1}, {"Pheonix", 3}});
-        g.shortest_path("Atlanta", "Houston").ForEach( x => Console.WriteLine(x) );
-
-        Console.WriteLine(Map_Math.distance(1.0, 15.0, 2.0, 56.0));
-
         int[] popular_destinations = new int[11];
         for(int d = 0; d < popular_destinations.Length; d++)
             popular_destinations[d] = 0;
@@ -38,12 +25,8 @@ class TestDijkstra
         cities[10] = new City("Miami", "FL", 25.7617, 80.1918, 1, 1);
 
 
-        Console.WriteLine("F");
-
         using(var reader = new StreamReader(@"input.txt"))
         {
-            List<string> listA = new List<string>();
-            List<string> listB = new List<string>();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
@@ -58,24 +41,25 @@ class TestDijkstra
 
 
 
+
         DijkstraGraph city_graph = new DijkstraGraph();
 
         for (int c = 0; c < cities.Length; c++){
 
             Dictionary<string, double> dict_temp = new Dictionary<string, double>();
             for(int d = 0; d < cities.Length; d++){
-                while (d != c){
-
+                if (d != c){
+                    Console.WriteLine(cities[d].CityName);
                     double distance = Map_Math.distance(cities[c].Longitude, cities[c].Latitude, cities[d].Longitude, cities[d].Latitude);
-                    dict_temp.Add(cities[d].CityName, distance-0.25*popular_destinations[d]);
-                    break;
+                    dict_temp.Add(cities[d].CityName, 200*popular_destinations[c]-30*distance);
                 }
             }
 
+            Console.WriteLine("\t");
             city_graph.add_vertex(cities[c].CityName, dict_temp);
         }
 
-        city_graph.shortest_path("Atlanta", "Oxford").ForEach( x => Console.WriteLine(x) );
+        city_graph.shortest_path("Atlanta", "Daytona").ForEach( x => Console.WriteLine(x) );
 
 
     }
